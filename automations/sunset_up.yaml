@@ -1,0 +1,26 @@
+- id: 'twilight_lighting'
+  alias: Twilight - Lights on in bedroom at sundown
+  description: Lights on in master bedroom at sundown
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "-00:10:00"
+  condition:
+    - condition: device
+      type: is_off
+      entity_id: light.bedroom_bulb_1
+      device_id: 6829bc8eb86143db2713311a3200319a
+      domain: light
+    - condition: device
+      type: is_off
+      entity_id: light.bedroom_bulb_2
+      device_id: d531cf6ce7fe2fb3a3bec6416c7eb9df
+      domain: light
+  action:
+    - service: light.turn_on
+      target:
+        area_id: masterbed
+      data:
+        transition: 1800
+        rgb_color: 253, 244, 220
+        brightness: 125

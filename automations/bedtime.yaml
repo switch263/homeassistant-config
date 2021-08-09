@@ -1,0 +1,24 @@
+- id: 'bedtime'
+  alias: Bedtime - Lights off in bed
+  description: Turns bedroom lights off when Max's phone starts charging wirelessly
+    at night.
+  trigger:
+    - platform: state
+      entity_id: sensor.pixel_3_charger_type
+      from: none
+      to: 'wireless'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 5
+        milliseconds: 0
+  condition:
+    - condition: time
+      after: '22:00:00'
+      before: '6:00:00'
+  action:
+    - service: light.turn_off
+      target:
+        area_id: masterbed
+      data:
+        transition: 30
